@@ -1,0 +1,12 @@
+<h1>Aman's image sharer app</h1>
+<%= form_with scope: :image, url: images_path, html: { id: 'new-form' } do |f| %>
+  <% if @image != nil && @image.errors.any? %>
+    <%= f.label 'Invalid image URL', id: 'invalid-image-label' %>
+    </br>
+  <% end %>
+
+  <%= f.label "Image Url to upload:" %>
+  <%= f.text_field :url %>
+  </br>
+  <%= f.submit %>
+<% end %>

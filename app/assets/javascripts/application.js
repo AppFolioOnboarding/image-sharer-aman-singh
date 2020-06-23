@@ -12,3 +12,9 @@
 //
 //= require jquery
 //= require jquery_ujs
+
+function flashCallback() {
+  $(".flash-message-div").fadeOut()
+}
+
+setTimeout(flashCallback, 2000);
