@@ -1,0 +1,8 @@
+<% flash.each do |type, msg| %>
+  <div class="flash-message-div">
+    <p class="flash-message-text"><%= msg %></p>
+  </div>
+<% end %>
+<h1>Aman's image sharer app</h1>
+<h3>Here's the image you uploaded</h3>
+<%= image_tag @image.url, id: 'show-image'  %>
