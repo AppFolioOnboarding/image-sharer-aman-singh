@@ -30,4 +30,10 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_select '#show-image'
   end
+
+  test 'should accept tags for create request' do
+    post images_path, params:
+      { image: { url: 'https://cdn.pixabay.com/736885_960_720.jpg', tag_list: 'tag1' } }
+    assert_equal 'tag1', Image.first.tag_list[0]
+  end
 end

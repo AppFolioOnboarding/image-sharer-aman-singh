@@ -5,4 +5,5 @@
 <% end %>
 <h1>Aman's image sharer app</h1>
 <h3>Here's the image you uploaded</h3>
+<h5 id="tags">Tags: <%= @image.tag_list %></h5>
 <%= image_tag @image.url, id: 'show-image' %>

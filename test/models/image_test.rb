@@ -18,4 +18,10 @@ class ImageTest < ActiveSupport::TestCase
     assert_equal 'tag1', image.tag_list[0]
     assert_equal 'tag2', image.tag_list[1]
   end
+
+  test 'should not have tags if not added' do
+    image = Image.new url: 'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_960_720.jpg'
+    assert image.valid?
+    assert_empty image.tag_list
+  end
 end
