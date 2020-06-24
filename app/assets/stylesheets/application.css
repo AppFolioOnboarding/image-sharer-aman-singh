@@ -28,3 +28,6 @@
   font-size: 110%;
   margin: 15px 25%;
 }
+.index-img {
+  max-width: 400px;
+}

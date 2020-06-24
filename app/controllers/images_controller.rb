@@ -6,7 +6,6 @@ class ImagesController < ApplicationController
     if @image.save
       redirect_to @image, notice: 'Image uploaded successfully'
     else
-      # TODO: Question: Why does this take us to GET /images url which opens new.html
       render :new
     end
   end
