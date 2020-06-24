@@ -1,2 +1,9 @@
 <h1 id="title">Welcome to Aman's image sharer app</h1>
 <%= link_to 'Upload an image', { controller: :images, action: :new }, id: 'upload_link'%>
+<br/>
+<h5>Previously Uploaded Images</h5>
+<% @images.reverse.each do |image| %>
+  <p>Create Date: <%= image.created_at %>></p>
+  <%= image_tag image.url, class: 'index-img' %>
+  <br/>
+<% end %>
