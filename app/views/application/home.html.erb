@@ -5,6 +5,6 @@
 <% @images.reverse.each do |image| %>
   <p>Create Date: <%= image.created_at %>></p>
   <%= image_tag image.url, class: 'index-img' %>
-  <p>Tags: <%= image.tag_list %></p>
+  <p id="tag_<%= image.id %>>">Tags: <%= image.tag_list %></p>
   <br/>
 <% end %>
