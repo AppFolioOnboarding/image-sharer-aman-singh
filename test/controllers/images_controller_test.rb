@@ -36,4 +36,29 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
       { image: { url: 'https://cdn.pixabay.com/736885_960_720.jpg', tag_list: 'tag1' } }
     assert_equal 'tag1', Image.first.tag_list[0]
   end
+
+  test 'should fail if tag query param missing for index api call' do
+    assert_raises(ActionController::ParameterMissing) do
+      get images_path
+    end
+  end
+
+  test 'should only display images for a given tag' do
+    Image.create! url: 'https://cdn.pixabay.com/1.jpg', tag_list: 'tag1'
+    Image.create! url: 'https://cdn.pixabay.com/1.jpg', tag_list: 'tag1, tag2, tag3'
+    Image.create! url: 'https://cdn.pixabay.com/2.jpg', tag_list: 'tag2'
+    Image.create! url: 'https://cdn.pixabay.com/3.jpg', tag_list: 'tag2, tag3, tag4'
+    get images_path, params: { tag: :tag1 }
+    assert_response :success
+    assert_select '.index-img', 2 do |elements|
+      assert_equal 'https://cdn.pixabay.com/1.jpg', elements[0].attributes['src'].value
+    end
+  end
+
+  test 'should display no images if tag isn\'t found' do
+    Image.create! url: 'https://cdn.pixabay.com/1.jpg', tag_list: 'blah'
+    get images_path, params: { tag: :tag1 }
+    assert_response :success
+    assert_select '.index-img', 0
+  end
 end
