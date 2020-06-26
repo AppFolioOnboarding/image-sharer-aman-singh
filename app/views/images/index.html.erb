@@ -1,0 +1,12 @@
+<h1>Aman's Image Sharer</h1>
+<h4>Images with tag: <%= @tag %></h4>
+<br/>
+<% @images.each do |image| %>
+  <p>Create Date: <%= image.created_at %>></p>
+  <%= image_tag image.url, class: 'index-img' %>
+  <p>Tags: <% image.tag_list.each do |tag| %>
+      <%= link_to tag, { controller: :images, tag: tag }, class: 'index-image-tag-link' %>
+    <% end %>
+  </p>
+  <br/>
+<% end %>
