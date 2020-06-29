@@ -12,12 +12,13 @@ module PageObjects
       end
 
       def delete
-        # TODO
+        node.find('.show-delete-img').click
         yield node.driver.browser.switch_to.alert
       end
 
       def delete_and_confirm!
-        # TODO
+        node.find('.show-delete-img').click
+        node.driver.browser.switch_to.alert.accept
         window.change_to(IndexPage)
       end
 

@@ -7,4 +7,5 @@
 <h5 id="tags">Tags: <%= @image.tag_list %></h5>
 <%= image_tag @image.url, id: 'show-image' %>
 <br/><br/>
-<%= link_to "Delete Image", image_path(@image), method: :delete, data: { confirm: "Are you sure?" } %>
+<%= link_to "Delete Image", image_path(@image), method: :delete, data: { confirm: "Are you sure?" },
+            class: 'show-delete-img' %>

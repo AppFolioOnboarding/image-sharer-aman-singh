@@ -12,13 +12,18 @@
   <h4>Images with tag: <%= @tag %></h4>
 <% end %>
 <br/>
-<% @images.each do |image| %>
-  <p>Create Date: <%= image.created_at %>></p>
-  <%= link_to image_tag(image.url, class: 'index-img'), url_for(controller: :images, action: :show, id: image.id) %>
-  <p>Tags:
-    <% image.tag_list.each do |tag| %>
-      <%= link_to tag, { controller: :images, tag: tag }, class: 'index-image-tag' %>
-    <% end %>
-  </p>
-  <br/>
-<% end %>
+<div id="index-images">
+  <% @images.each do |image| %>
+    <div class="index-img-card">
+      <p>Create Date: <%= image.created_at %>></p>
+      <%= link_to image_tag(image.url, class: 'index-img'), url_for(controller: :images, action: :show, id: image.id),
+                  class: "index-img-show" %>
+      <p>Tags:
+        <% image.tag_list.each do |tag| %>
+          <%= link_to tag, { controller: :images, tag: tag }, class: 'index-img-tag' %>
+        <% end %>
+      </p>
+      <br/>
+    </div>
+  <% end %>
+</div>

@@ -6,7 +6,7 @@ module PageObjects
       end
 
       def tags
-        # TODO
+        node.all('.index-img-tag').map(&:text).join(',')
       end
 
       def click_tag!(tag_name)

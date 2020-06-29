@@ -4,7 +4,7 @@
 <% end %>
 <%= form_with scope: :image, url: images_path, html: { id: 'new-form' } do |f| %>
   <%= f.label "Image Url to upload:" %>
-  <%= f.text_field :url %>
+  <%= f.text_field :url, class: 'new-image-url' %>
   <br/>
   <%= f.label "Add tags to your image:" %>
   <%= f.text_field :tag_list %>

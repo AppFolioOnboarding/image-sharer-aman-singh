@@ -1,11 +1,14 @@
+require File.dirname(__FILE__) + '/image_card'
+
 module PageObjects
   module Images
     class IndexPage < PageObjects::Document
       path :images
 
-      collection :images, locator: '#TODO', item_locator: '#TODO', contains: ImageCard do
+      collection :images, locator: '#index-images', item_locator: '.index-img-card', contains: ImageCard do
         def view!
-          # TODO
+          node.find('.index-img-show').click
+          window.change_to(ShowPage)
         end
       end
 
@@ -15,7 +18,8 @@ module PageObjects
       end
 
       def showing_image?(url:, tags: nil)
-        # TODO
+        target = images.select { |image| image.url == url && (tags.nil? || image.tags == tags) }
+        !target.empty?
       end
 
       def clear_tag_filter!
