@@ -37,12 +37,6 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
     assert_equal 'tag1', Image.first.tag_list[0]
   end
 
-  test 'should fail if tag query param missing for index api call' do
-    assert_raises(ActionController::ParameterMissing) do
-      get images_path
-    end
-  end
-
   test 'should only display images for a given tag' do
     Image.create! url: 'https://cdn.pixabay.com/1.jpg', tag_list: 'tag1'
     Image.create! url: 'https://cdn.pixabay.com/1.jpg', tag_list: 'tag1, tag2, tag3'
@@ -60,5 +54,25 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
     get images_path, params: { tag: :tag1 }
     assert_response :success
     assert_select '.index-img', 0
+  end
+
+  test 'should get images#index at root path' do
+    get root_path
+    assert_response :success
+    assert_select '#title', "Welcome to Aman's Image Sharer"
+  end
+
+  test 'should display all previously uploaded images when tag isn\'t provided' do
+    Image.create!(url: 'https://appf.com/1.jpg', created_at: Date.today - 1.day)
+    Image.create!(url: 'https://appf.com/2.jpg', created_at: Date.today)
+    Image.create!(url: 'https://appf.com/3.jpg', created_at: Date.today - 2.days)
+    count = Image.all.count
+    get root_path
+    assert_response :success
+    assert_select 'img', count do |elements|
+      assert_equal('https://appf.com/2.jpg', elements[0].attributes['src'].value)
+      assert_equal('https://appf.com/1.jpg', elements[1].attributes['src'].value)
+      assert_equal('https://appf.com/3.jpg', elements[2].attributes['src'].value)
+    end
   end
 end

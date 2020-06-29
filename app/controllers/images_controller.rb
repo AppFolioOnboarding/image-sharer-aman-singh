@@ -15,17 +15,17 @@ class ImagesController < ApplicationController
   end
 
   def index
-    @tag = index_params
-    @images = Image.tagged_with(@tag).order(created_at: :desc)
+    @tag = params[:tag]
+    @images = if @tag.nil?
+                Image.all.order(created_at: :desc)
+              else
+                Image.tagged_with(@tag).order(created_at: :desc)
+              end
   end
 
   private
 
   def image_params
     params.require(:image).permit(:url, :tag_list)
-  end
-
-  def index_params
-    params.require(:tag)
   end
 end
