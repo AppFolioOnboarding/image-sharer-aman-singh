@@ -23,6 +23,11 @@ class ImagesController < ApplicationController
               end
   end
 
+  def destroy
+    Image.delete(params[:id])
+    redirect_to :root, notice: 'You have successfully deleted the image.'
+  end
+
   private
 
   def image_params
