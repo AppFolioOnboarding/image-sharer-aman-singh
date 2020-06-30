@@ -1,12 +1,29 @@
-<h1>Aman's Image Sharer</h1>
-<h4>Images with tag: <%= @tag %></h4>
-<br/>
-<% @images.each do |image| %>
-  <p>Create Date: <%= image.created_at %>></p>
-  <%= image_tag image.url, class: 'index-img' %>
-  <p>Tags: <% image.tag_list.each do |tag| %>
-      <%= link_to tag, { controller: :images, tag: tag }, class: 'index-image-tag-link' %>
-    <% end %>
-  </p>
-  <br/>
+<% flash.each do |type, msg| %>
+  <div class="flash-message-div">
+    <p class="flash-message-text"><%= msg %></p>
+  </div>
 <% end %>
+<h1 id="title">Welcome to Aman's Image Sharer</h1>
+<%= link_to 'Upload an image', { controller: :images, action: :new }, id: 'upload_link' %>
+<br/><br/>
+<% if @tag.nil? %>
+  <h4>Previously Uploaded Images</h4>
+<% else %>
+  <h4>Images with tag: <%= @tag %></h4>
+<% end %>
+<br/>
+<div id="index-images">
+  <% @images.each do |image| %>
+    <div class="index-img-card">
+      <p>Create Date: <%= image.created_at %>></p>
+      <%= link_to image_tag(image.url, class: 'index-img'), url_for(controller: :images, action: :show, id: image.id),
+                  class: "index-img-show" %>
+      <p>Tags:
+        <% image.tag_list.each do |tag| %>
+          <%= link_to tag, { controller: :images, tag: tag }, class: 'index-img-tag' %>
+        <% end %>
+      </p>
+      <br/>
+    </div>
+  <% end %>
+</div>
