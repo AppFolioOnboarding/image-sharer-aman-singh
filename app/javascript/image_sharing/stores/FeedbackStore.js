@@ -1,5 +1,14 @@
-export class FeedbackStore {
-  /* Implement your feedback store*/
+class FeedbackStore {
+  name = null;
+  comment = null;
+
+  setName = (name) => {
+    this.name = name;
+  };
+
+  setComment = (comment) => {
+    this.comment = comment;
+  };
 }
 
 export default FeedbackStore;
