@@ -1,22 +1,37 @@
 import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
-import { Row, Col } from 'reactstrap';
+import { Row, Col, Alert } from 'reactstrap';
+import PropTypes from 'prop-types';
 
 @observer
 class FeedbackForm extends Component {
+  store = this.props.stores.feedbackStore;
+
+  onSubmit = (e) => {
+    e.preventDefault();
+    this.store.onSubmit();
+  };
+
   render() {
     return (
       <div>
         <Row>
           <Col lg={{ size: 4, offset: 4 }}>
-            <form>
+            <Alert
+              color={this.store.alert.level}
+              isOpen={!!this.store.alert.level}
+            >
+              {this.store.alert.message}
+            </Alert>
+            <form onSubmit={this.onSubmit}>
               <div className="form-group">
                 <p id="name">Your Name:</p>
                 <input
                   type="text"
                   className="form-control"
+                  required
                   onChange={(e) => {
-                  this.props.stores.feedbackStore.setName(e.target.value);
+                    this.store.setName(e.target.value);
                 }}
                 />
               </div>
@@ -24,8 +39,9 @@ class FeedbackForm extends Component {
                 <p id="comment">Comments:</p>
                 <textarea
                   className="form-control"
+                  required
                   onChange={(e) => {
-                            this.props.stores.feedbackStore.setComment(e.target.value);
+                    this.store.setComment(e.target.value);
                           }}
                 />
               </div>
@@ -37,5 +53,9 @@ class FeedbackForm extends Component {
     );
   }
 }
+
+FeedbackForm.propTypes = {
+  stores: PropTypes.object
+};
 
 export default inject('stores')(FeedbackForm);
